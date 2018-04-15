@@ -1,4 +1,4 @@
-# AA inciante
+# AA iniciante
 
 ### lista 1:
 
