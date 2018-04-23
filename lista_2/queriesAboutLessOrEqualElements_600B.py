@@ -3,33 +3,26 @@ n, m = map(int, input().split())
 a = list(map(int, input().split()))
 b = list(map(int, input().split()))
 
-ca = a.copy()
-cb = b.copy()
+a.sort()
 
-ca.sort()
+def busca_binaria(vetor, num):
+    esquerda, direita = 0, len(vetor)
+    while esquerda<=direita:
+        meio = (esquerda+direita) // 2
 
-ia = 0
-ib = 0
+        if esquerda == direita:
+            return esquerda
 
-qntd = 0
-saida = [0] * len(cb)
-saida2 = [0] * len(cb)
+        aux_num = vetor[meio]
 
-while(ia < len(ca) and ib < len(cb)):
-	
-	if cb[ib] >= ca[ia]:
-		qntd += 1
-		ia += 1
-	else:
-		saida[ib] += qntd
-		if ia < len(b):
-			if cb[ib] == b[ia]:
-				print(cb[ib], b[ia])
-				saida2[ia] = saida[ib]
-		ib +=1
-		
-saida[-1] = qntd
+        if num == aux_num:
+            return meio+1
+        elif num > aux_num:
+            esquerda = meio+1
+        else:
+            direita = meio
 
+for i in range(0, len(b)-1):
+    print(busca_binaria(a, b[i]), end=" ")
 
-print (saida)
-print (saida2)
+print(busca_binaria(a, b[-1]))
