@@ -22,7 +22,7 @@ while n != 0 and q != 0:
         array[i] = int(input())
 
     array.sort()
-    print("CASE# %d" % casos)
+    print("CASE# %d:" % casos)
 
     for i in range(q):
         query = int(input())
