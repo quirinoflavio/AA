@@ -43,3 +43,4 @@ P5 | Broken Keyboard | 1451 | URI
 P6 | Hall of Murderers | 1861 | URI
 P7 | Queue (Rookie) | QUE1 | SPOJ
 P8 | Ada and Queue | ADAQUEUE | SPOJ
+P9 | Diamonds and Sand | 1069 | URI
