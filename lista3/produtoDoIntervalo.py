@@ -1,5 +1,4 @@
 from sys import stdin, stdout
-
 MAXN = 400000
 
 segTree = [ 0 for x in xrange(MAXN)]
@@ -41,6 +40,30 @@ def getSaida(x):
 
 
 testes = stdin.readlines()
+saida = ""
+array = False
+for line in testes:
+    nline = line.strip().split()
+    if len(nline) == 2:
+        if saida: stdout.write(saida + '\n')
+        saida = ""
+        N, K = map(int, nline)
+        array = True
+        continue
+    elif array:
+        arr = map(int, nline)
+        build(1, 1,  N)
+        array = False
+    else:
+        op, i, x = nline
+        i, x = int(i), int(x)
+        if op == "P":
+            saida += getSaida(query(1, 1, N, i, x))
+        else:
+            update(1, 1, N, value(x), i)
+
+stdout.write(saida + '\n')
+"""
 while True:
     try:
         N, K = map(int, raw_input().split())
@@ -58,7 +81,7 @@ while True:
     except EOFError:
         break
 
-
+"""
 
 
 
