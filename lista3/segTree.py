@@ -1,4 +1,4 @@
-MAXN = 100000
+MAXN = 400000
 INF = 1000
 
 segTree = [ 0 for x in xrange(MAXN)]
