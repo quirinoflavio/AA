@@ -2,6 +2,7 @@ MAXN = 400000
 INF = 1000
 
 segTree = [ 0 for x in xrange(MAXN)]
+arr = []
 
 def build(id, l, r):
     if l == r:
@@ -20,7 +21,7 @@ def update(id, l, r, v, pos):
         if pos <= m:
             update(id*2, l, m, v, pos)
         else:
-            update(id*2+1, m+1, r, pos)
+            update(id*2+1, m+1, r, v, pos)
         segTree[id] = min(segTree[id*2], segTree[id*2+1])
 
 def query(id, l, r, x, y):
