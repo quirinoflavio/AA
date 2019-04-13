@@ -1,5 +1,5 @@
 from sys import stdin, stdout
-MAXN = 400000
+MAXN = 280000
 
 segTree = [ 0 for x in xrange(MAXN)]
 
@@ -34,16 +34,19 @@ def query(id, l, r, x, y):
 
 
 entrada = stdin.readlines()
-saida = ""
 N = int(entrada[0])
-arr = map(int, entrada[1].strip().split())
+arr = map(int, entrada[1].split())
 build(1,1,N)
+saida=""
 i = 2
 while (i < len(entrada)):
-    op, index = entrada[i].split()
-    index = int(index)
+    
+    op = entrada[i][0]
+    index = int(entrada[i][2:])
+    
     if op == '?':
-        stdout.write(str(query(1,1,N,1,index)) + '\n')
+        saida += str(query(1,1,N,1,index) - arr[index-1]) + '\n'
     else:
         update(1,1,N,0,index)
     i += 1
+stdout.write(saida)
