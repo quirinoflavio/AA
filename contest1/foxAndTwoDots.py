@@ -18,7 +18,7 @@ for li in xrange(n):
             g[ (li,col) ].append( (li,col - 1) )
         elif (col == m):
             g[ (li,col) ].append( (li,col - 1) )
-        else:
+        elif (col == 0):
             g[ (li,col) ].append( (li,col + 1) )
         
 
@@ -27,7 +27,7 @@ for li in xrange(n):
             g[ (li,col) ].append( (li - 1,col) )
         elif (li == 0):
             g[ (li,col) ].append( (li + 1,col) )
-        else:
+        elif (li == n):
             g[ (li,col) ].append( (li - 1,col) )
             
 
@@ -46,18 +46,21 @@ def left((x, y)):
 def right((x, y)):
     if y < m-1:
         return (x, y+1)
+
 ans = False
 
 def gg(tupla, contador, conj):
     if contador >= 4 and tupla in conj:
         ans = True
-        print "2134EDFSFDF"
-        return 
-    conj.add(tupla)
-    for t in g[tupla]:
-        gg(t, contador+1, conj)
+        print ans
+    else:
+        conj.add(tupla)
+        for t in g[tupla]:
+            gg(t, contador+1, conj, ans)
     
 
-print ans
 print g
-gg( (0,0), 0, set())
+print "$$$$"
+gg( (0,0), 0, set(), ans)
+
+print ans
