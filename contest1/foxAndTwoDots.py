@@ -1,10 +1,92 @@
+from collections import defaultdict
 n, m = map(int, raw_input().split())
 
-board = [ [] for x in xrange(n) ]
+board = [ list(raw_input()) for x in xrange(n) ]
 
-for li in xrange(n):
-    board[li] = list(raw_input())
+visited = set()
 
+graph1 = {
+    'A' : ['B','S'],
+    'B' : ['A'],
+    'C' : ['D','E','F','S'],
+    'D' : ['C'],
+    'E' : ['C','H'],
+    'F' : ['C','G'],
+    'G' : ['F','S'],
+    'H' : ['E','G'],
+    'S' : ['A','C','G']
+}
+
+def matrix_to_list(matrix):
+    graph = defaultdict(set)
+    for x in xrange(n):
+        for y in xrange(m):
+            color = matrix[x][y]
+            if x>0:
+                nc = matrix[x-1][y] 
+                graph[(color, (x, y))].add( (nc,(x-1, y)))
+            if x < n-1:
+                nc = matrix[x+1][y]
+                graph[ (color, (x, y))].add((nc, (x+1, y)))
+            if y > 0:
+                nc = matrix[x][y-1] 
+                graph[ (color, (x, y))].add( (nc, (x, y-1)))
+            if y < m-1: 
+                nc = matrix[x][y+1]
+                graph[ (color, (x, y))].add((nc, (x, y+1)))
+    return graph
+
+graph = matrix_to_list(board)
+
+def dfs(graph, node, visited, color):
+    
+    inVisited = node in visited
+    if inVisited and node[0] == color:
+        visited.append(node)
+    elif not inVisited and node[0] == color:
+        print node
+        visited.append(node)
+
+        for n in graph[node]:
+            dfs(graph,n, visited, color)
+    
+    return len(visited), len(set(visited))
+"""
+3 4
+ABCD
+FGHJ
+TYUI
+
+3 4
+AAAA
+BBHJ
+TYUI
+"""
+
+visited = dfs(graph,('A', (0,0)), [], 'A')
+print(visited)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
 g = dict()
 
 for li in xrange(n):
@@ -63,4 +145,4 @@ print g
 print "$$$$"
 gg( (0,0), 0, set(), ans)
 
-print ans
+print ans"""
