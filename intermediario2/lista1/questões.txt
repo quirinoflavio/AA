@@ -1,0 +1,14 @@
+A - Acordes Intergalaticos 2658        | 
+B - Brincadeira 2659                   | 
+C - Cigarras Periodicas 2660           | V
+D - Despojados 2661                    | V
+E - Escala Musical 2662                | V
+F - Fase 2663                          | V
+G - Ginastica 2664                     | V
+H - Hipercampo 2665                    | 
+I - Imposto Real 2666                  | 
+J - Jogo de Boca 2667                  | V
+K - K-esimo 2668                       | 
+L - Laboratorio de Biotecnologia 2669  | 
+M - Maquina de Cafe 2670               | V
+

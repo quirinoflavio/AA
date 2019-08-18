@@ -1,0 +1,13 @@
+A - Assigning Teams                 |
+B - Back to the Future              |
+C - Counting Self-Rotating Subsets  |
+D - Dating On-Line                  |
+E - Emission Spectrum               |
+F - Farm robot                      |
+G - Game of Matchings               |
+H - Hotel Rewards                   |
+I - Critical Links                  |
+J - Just in Time                    |
+K - Kill the Werewolf               |
+L - Holes                           |
+M - String Problem                  |
