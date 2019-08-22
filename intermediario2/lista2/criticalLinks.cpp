@@ -1,15 +1,13 @@
+// RUNTIME
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int graph[5][5] = {
-   {0, 1, 1, 1, 0},
-   {1, 0, 1, 0, 0},
-   {1, 1, 0, 0, 0},
-   {1, 0, 0, 0, 1},
-   {0, 0, 0, 1, 0}
-};
+#define MAXN 20000
 
+int _count =0;
+vector< pair<int, int> > _bridges;
+int graph[MAXN][MAXN];
 
 void bridgeFind(int start, bool visited[], int disc[], int low[], int parent[], int n){
     static int time = 0;
@@ -17,14 +15,15 @@ void bridgeFind(int start, bool visited[], int disc[], int low[], int parent[], 
     disc[start] = low[start] = ++time;
 
     for(int v = 0; v < n; v++ ){
-        if (graph[start][v]){
+        if (graph[start][v] == 1){
             if(!visited[v]){
                 parent[v] = start;
                 bridgeFind(v, visited, disc, low, parent, n);
 
                 low[start] = min(low[start], low[v]);
                 if(low[v] > disc[start]){
-                    cout << start << " - " << v << endl;
+                    _count++;
+                    _bridges.push_back(make_pair(start, v));
                 }
             }
             else if(v != parent[start]) {
@@ -46,18 +45,41 @@ bool bridges(int n){
         vis[i] = false;
         parent[i] = -1;
     }
-    int count; 
-    string saida = "";
+
     for(int i = 0; i < n; i++){
         if (!vis[i]) bridgeFind(i, vis, disc, low, parent, n);
     }
 
-    cout << saida << " " << count << endl;
-
 }
 
-int main(int argc, char* argv[]) {
 
-    bridges(5);
+
+int main(int argc, char* argv[]) {
+    int n, v, g, a;
+    char p;
+    while(cin >> n){
+
+        for (int i = 0; i < n; i++){
+            cin >> v >> p >> g >> p;
+            for (int j = 0; j < g; j++){
+                cin >> a;
+                graph[v][a] = 1;
+                graph[a][v] = 1;
+            }
+        }
+
+        _bridges.clear();
+        _count = 0;
+        
+        bridges(n);
+        
+        cout << _count << " critical links"<< endl;
+        
+        sort(_bridges.begin(), _bridges.end());
+        for(int i = 0; i < _count; i++){
+            cout << _bridges[i].first << " - " << _bridges[i].second << endl;
+        }
+        
+    }
     return 0;
 }
