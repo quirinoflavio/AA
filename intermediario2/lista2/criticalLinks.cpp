@@ -3,7 +3,7 @@
 
 using namespace std;
 
-#define MAXN 20000
+#define MAXN 25000
 
 int _count =0;
 vector< pair<int, int> > _bridges;
