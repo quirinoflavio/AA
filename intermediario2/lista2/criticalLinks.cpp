@@ -1,85 +1,75 @@
-// RUNTIME
 #include <bits/stdc++.h>
 
+#define MAX 100001
 using namespace std;
+ 
+bitset<MAX> vis;
+vector<int> graph[MAX];
+vector< pair<int, int> > bridges;
+int sz, n, q, ans, num[MAX], parent[MAX], low[MAX];
 
-#define MAXN 25000
-
-int _count =0;
-vector< pair<int, int> > _bridges;
-int graph[MAXN][MAXN];
-
-void bridgeFind(int start, bool visited[], int disc[], int low[], int parent[], int n){
-    static int time = 0;
-    visited[start] = true;
-    disc[start] = low[start] = ++time;
-
-    for(int v = 0; v < n; v++ ){
-        if (graph[start][v] == 1){
-            if(!visited[v]){
-                parent[v] = start;
-                bridgeFind(v, visited, disc, low, parent, n);
-
-                low[start] = min(low[start], low[v]);
-                if(low[v] > disc[start]){
-                    _count++;
-                    _bridges.push_back(make_pair(start, v));
-                }
+void dfs(int no){
+    vis[no] = true;
+    num[no] = low[no] = sz++;
+    for(int i = 0; i < graph[no].size(); i++){
+        int child = graph[no][i];
+        if(!vis[child]){
+            parent[child] = no;
+            dfs(child);
+            if(low[child] > num[no]) {
+                ans++; 
+                bridges.push_back({min(no, child), max(child, no)});
             }
-            else if(v != parent[start]) {
-                low[start] = min(low[start], disc[v]);
-            }
-        }
+            low[no] = min(low[no], low[child]);
+        }else if(child != parent[no]) low[no] = min(low[no], num[child]);
+    }
+}
+ 
+void ponte(int tam){
+    sz = 0;
+    ans = 0;
+    vis.reset();
+    memset(low, -1, sizeof low);
+    memset(num, -1, sizeof num);
+    memset(parent, -1, sizeof parent);
+    dfs(0);
+
+    for(int i = 0; i < tam; i++){
+        if (!vis[i]) dfs(i);
     }
 }
 
-
-
-bool bridges(int n){
-    bool *vis = new bool[n];
-    int *disc = new int[n];
-    int *low = new int[n];
-    int *parent = new int[n];
-
-    for(int i = 0; i < n; i++){
-        vis[i] = false;
-        parent[i] = -1;
-    }
-
-    for(int i = 0; i < n; i++){
-        if (!vis[i]) bridgeFind(i, vis, disc, low, parent, n);
-    }
-
-}
-
-
-
-int main(int argc, char* argv[]) {
-    int n, v, g, a;
-    char p;
+int main(){
     while(cin >> n){
+        for(int i = 0; i <= n; i++){
+            graph[i].clear();
+        }
 
-        for (int i = 0; i < n; i++){
+        for(int i = 0; i < n; i++){
+
+            int v, g, a;
+            char p; 
+
             cin >> v >> p >> g >> p;
-            for (int j = 0; j < g; j++){
+            for(int j = 0; j < g; j++){
                 cin >> a;
-                graph[v][a] = 1;
-                graph[a][v] = 1;
+                graph[v].push_back(a);
             }
+            
         }
 
-        _bridges.clear();
-        _count = 0;
-        
-        bridges(n);
-        
-        cout << _count << " critical links"<< endl;
-        
-        sort(_bridges.begin(), _bridges.end());
-        for(int i = 0; i < _count; i++){
-            cout << _bridges[i].first << " - " << _bridges[i].second << endl;
+        ponte(n);
+
+        cout << ans << " critical links" << endl;
+
+        sort(bridges.begin(), bridges.end());
+        for(int i = 0; i < ans; i++){
+            cout << bridges[i].first << " - " << bridges[i].second << endl;
         }
-        
+        bridges.clear();
+
+        cout << endl;
+
     }
     return 0;
 }
