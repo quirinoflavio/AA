@@ -2,12 +2,13 @@
 
 using namespace std;
 
+#define ll long long
 #define LIM (int) 1e9 + 1
 
-int A, B;
+ll A, B;
 
-int calc_conta(int val){
-    int acum = 0;
+ll calc_conta(ll val){
+    ll acum = 0;
 
     if(val > 100){
         val -= 100;
@@ -27,50 +28,70 @@ int calc_conta(int val){
 
     if(val > 990000) {
         val -= 990000;
-        acum += 990000*4;
+        acum += 990000*5;
     }else {
         acum += val*5;
         val -= val;
     }
 
-    acum += val*7;
+    acum += val*9;
     return acum;
 }
 
-int calc_A(int A, int a){
-    return A - a;
-}
-int calc_B(int B, int a){
-    return B + a;
-}
+ll calc_consumo(ll val){
+    ll cons = 0;
 
-int binarySearch(int l, int r) 
-{ 
-    printf("%d %d\n", l, r);
-    if (r >= l) { 
-        int mid = l + (r - l) / 2; 
-  
-        // If the element is present at the middle 
-        // itself 
-        int custo = calc_conta(mid);
-        int resA = calc_A(A, custo);
-        int resB = calc_B(B, custo);
-
-        if (resA == resB) // && custo < resB 
-            return custo; 
-  
-        // If element is smaller than mid, then 
-        // it can only be present in left subarray 
-        if (custo < A) 
-            return binarySearch(l, mid - 1); 
-  
-        // Else the element can only be present 
-        // in right subarray 
-        return binarySearch(mid + 1, r); 
+    if(val >= 200){
+        val -= 200;
+        cons += 100;
+    } else{
+        cons += val/2;
+        val -= val;
     } 
+
+    if(val >= 29700) {
+        cons += 9900;
+        val -= 29700;
+    }else {
+        cons += val/3;
+        val -= val;
+    }
+
+    if(val >= 4950000) {
+        cons += 990000;
+        val -= 4950000;
+    }else {
+        cons += val/5;
+        val -= val;
+    }
+
+    cons += val/7;
+    return cons;
+}
+
+
+ll binarySearch(ll l, ll r) { 
+    
+    
+    if (r >= l) { 
+        
+        ll c1 = (l+r) >> 1; 
+        ll custo1 = calc_conta(c1);
+        ll custo2 = B + custo1;
+        ll c2 = calc_consumo(custo2);
+        ll total = calc_conta(c1 + c2);
+
+        //printf("%lld..%lld %lld %lld %lld %lld %lld\n", l, r, c1, custo1, c2, custo2, total);
+
+        if (total == A)
+            return custo1; 
   
-    // We reach here when element is not 
-    // present in array 
+        if (total > A) 
+            return binarySearch(l, c1 - 1); 
+  
+        return binarySearch(c1 + 1, r); 
+    } 
+
     return -1; 
 } 
 
@@ -78,15 +99,15 @@ int main(){
     
 
 
-    scanf("%d%d", &A, &B);
+    scanf("%lld%lld", &A, &B);
     while(A != 0){
-        int a = binarySearch(1, LIM);
+        ll a = binarySearch(1, A);
 
 
-        printf("%d\n", a);
+        printf("%lld\n", a);
 
 
-        scanf("%d%d", &A, &B);
+        scanf("%lld%lld", &A, &B);
     }
 
 
