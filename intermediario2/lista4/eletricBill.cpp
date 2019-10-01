@@ -34,7 +34,7 @@ ll calc_conta(ll val){
         val -= val;
     }
 
-    acum += val*9;
+    acum += val*7;
     return acum;
 }
 
@@ -79,10 +79,10 @@ ll binarySearch(ll l, ll r) {
         ll custo1 = calc_conta(c1);
         ll custo2 = B + custo1;
         ll c2 = calc_consumo(custo2);
+        ll custo22 = calc_conta(c2);
         ll total = calc_conta(c1 + c2);
 
-        //printf("%lld..%lld %lld %lld %lld %lld %lld\n", l, r, c1, custo1, c2, custo2, total);
-
+        
         if (total == A)
             return custo1; 
   
