@@ -53,3 +53,4 @@ P42 | Critical Links | | UVA
 P43 | Just in Time | | URI
 P44 | Holes | | Codefroces
 P45 | String Problem | | Codeforces
+P46 | O Jogo Matemático de Paula  | 1192  | URI
